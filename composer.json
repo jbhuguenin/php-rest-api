@@ -1,0 +1,19 @@
+{
+    "name": "jbhuguenin/php-rest-api",
+    "description": "simple rest server",
+    "authors": [
+        {
+            "name": "Huguenin Jean-Baptiste",
+            "email": "jeanbaptiste.huguenin@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "Rest\\": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    }
+}
