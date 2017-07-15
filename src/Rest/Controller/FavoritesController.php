@@ -2,15 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: jean-baptistehuguenin
- * Date: 14/07/2017
- * Time: 11:42
+ * Date: 15/07/2017
+ * Time: 15:49
  */
 
 namespace Rest\Controller;
 
-use Rest\Entity\User;
 
-class UserController extends AbstractController
+use Rest\Entity\Favorites;
+
+class FavoritesController extends AbstractController
 {
     /**
      * @param $id
@@ -18,12 +19,12 @@ class UserController extends AbstractController
      */
     public function get($id)
     {
-        $user = $this->getEntityManager()->find(User::class, $id);
+        $favorites = $this->getEntityManager()->findBy(Favorites::class, ['user_id' => $id]);
 
-        if (!$user) {
+        if (!$favorites) {
             $this->getResponse()->setStatusCode(422)->setContent();
         } else {
-            $this->getResponse()->setContent($user->getArrayCopy());
+            $this->getResponse()->setContent($favorites->getArrayCopy());
         }
 
         return $this->getResponse();

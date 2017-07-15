@@ -1,7 +1,10 @@
 apache:
-    image: php:apache
+    container_name: php-apache
+    image: ruslangetmansky/docker-apache-php:7.0
     volumes:
-    - "src/:/var/www/html"
+      - .:/var/www/app
+    environment:
+      - APACHE_DOC_ROOT=/var/www/app/public
     links:
     - mysql
     ports:
@@ -10,5 +13,10 @@ apache:
 
 mysql:
     image: mysql:latest
+    container_name: mysql
     environment:
         MYSQL_ROOT_PASSWORD: passroot
+        MYSQL_DATABSE: rest_api
+        MYSQL_USER: root
+
+

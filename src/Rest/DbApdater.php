@@ -9,7 +9,7 @@
 namespace Rest;
 
 
-class Database
+class DbAdapter
 {
     private $connection;
 
@@ -17,11 +17,12 @@ class Database
 
 
     /**
-     * Database constructor.
+     * DbAdapter constructor.
      * @param $host
      * @param $dbName
      * @param $user
      * @param $pass
+     * @throws \Exception
      */
     public function __construct($host, $dbName, $user, $pass)
     {
@@ -29,6 +30,7 @@ class Database
             $this->connection = new \PDO(sprintf("mysql:host=%s;dbname=%s", $host, $dbName), $user, $pass);
         } catch (\PDOException $e) {
             var_dump($e->getMessage());
+            throw new \Exception('pdo connect failed');
         }
     }
 
@@ -42,12 +44,12 @@ class Database
 
     /**
      * @param $config
-     * @return Database
+     * @return DbAdapter
      */
     public static function getInstance($config)
     {
         if(!self::$instance) {
-            return new self($config['host'], $config['dbname'], $config['user'], $config['pass']);
+            return new self($config['host'], $config['dbname'], $config['user'], $config['password']);
         }
 
         return self::$instance;
@@ -71,9 +73,9 @@ class Database
         if($return){
             // fetch data
             if($process == 'all')
-                return $query->fetchAll(PDO::FETCH_ASSOC);
+                return $query->fetchAll(\PDO::FETCH_ASSOC);
             else
-                return  $query->fetch(PDO::FETCH_ASSOC);
+                return  $query->fetch(\PDO::FETCH_ASSOC);
         }
         return $status;
     }

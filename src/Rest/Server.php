@@ -13,12 +13,16 @@ class Server
     /** @var $router \Rest\Router */
     protected $router;
 
+    public static $config;
+
     /**
      * @param $config
      * @return Server
      */
     public static function init($config)
     {
+        self::$config = $config;
+
         if(!isset($config['router']) && !isset($config['router']['routes'])) {
             throw new \RuntimeException('invalid router config');
         }

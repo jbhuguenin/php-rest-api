@@ -24,6 +24,7 @@ class Response
         200 => 'OK',
         201 => 'Created',
         405 => 'Method No Allowed',
+        422 => 'Unprocessable Entity',
         500 => 'Internal Server Error',
         501 => 'Not Implemented',
 

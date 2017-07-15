@@ -9,6 +9,7 @@
 namespace Rest\Controller;
 
 
+use Rest\Entity\EntityManager;
 use Rest\Request;
 use Rest\Response;
 
@@ -17,14 +18,27 @@ class AbstractController
     /** @var $response \Rest\Response */
     protected $response = null;
 
+    /** @var  $entityManager \Rest\Entity\EntityManager */
+    protected $entityManager;
+
+    /**
+     * AbstractController constructor.
+     */
     public function __construct()
     {
-
         if (!$this->getResponse()) {
             $this->setResponse(New Response());
         }
+
+        if(!$this->getEntityManager()) {
+            $this->setEntityManager(new EntityManager());
+        }
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function dispatch(Request $request)
     {
         switch (strtolower($request->getRequestType())) {
@@ -82,11 +96,18 @@ class AbstractController
         return $this;
     }
 
+    /**
+     * @param $id
+     * @return Response
+     */
     public function get($id)
     {
         return $this->getResponse()->setStatusCode(405);
     }
 
+    /**
+     * @return Response
+     */
     public function getList()
     {
         return $this->getResponse()->setStatusCode(405);
@@ -95,5 +116,23 @@ class AbstractController
     public function create($data)
     {
         return $this->getResponse()->setStatusCode(405);
+    }
+
+    /**
+     * @return \Rest\Entity\EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
+    }
+
+    /**
+     * @param $entityManager
+     * @return $this
+     */
+    public function setEntityManager($entityManager)
+    {
+        $this->entityManager = $entityManager;
+        return $this;
     }
 }
