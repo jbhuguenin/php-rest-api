@@ -1,6 +1,7 @@
 # php-rest-api
 
 Instructions:
+
  - Launch Server: `docker-compose up`
  - Init Database: `docker exec -i mysql mysql -uroot -ppassroot < database.sql`
  

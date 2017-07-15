@@ -17,6 +17,13 @@ class Favorites extends EntityAbstract
 
     protected $songId;
 
+    protected $favorites;
+
+    public function __construct()
+    {
+        $this->favorites = [];
+    }
+
     /**
      * @return mixed
      */
