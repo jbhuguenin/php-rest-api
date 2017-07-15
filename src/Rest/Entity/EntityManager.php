@@ -63,11 +63,30 @@ class EntityManager
 
     /**
      * @param $className
-     * @param $identifiers
      * @return array|bool|mixed|EntityAbstract
      * @throws \Exception
      */
-    public function findBy($className, $identifiers)
+    public function findAll($className)
+    {
+        if (!class_exists($className)) {
+            throw new \Exception(sprintf('invalid entityname %s given', $className));
+        }
+
+        $entityName = (new \ReflectionClass($className))->getShortName();
+
+        $result = $this->dbInstance->query(sprintf("SELECT * FROM %s", strtolower($entityName)), "all");
+
+        return $result;
+    }
+
+    /**
+     * @param $className
+     * @param $identifiers
+     * @param string $process
+     * @return array|bool|mixed|EntityAbstract
+     * @throws \Exception
+     */
+    public function findBy($className, $identifiers, $process = '')
     {
         if (!class_exists($className)) {
             throw new \Exception(sprintf('invalid entityname %s given', $className));
@@ -77,11 +96,11 @@ class EntityManager
 
         $result = $this->dbInstance->query(
             sprintf("SELECT * FROM %s WHERE %s = :id", strtolower($entityName), key($identifiers)),
-            '',
+            $process,
             ['id' => reset($identifiers)])
         ;
 
-        if($result) {
+        if($result && $process == '') {
             $entity = new $className();
             if (!$entity instanceof EntityAbstract) {
                 throw new \Exception('entity must implements EntityAbstract');
@@ -95,7 +114,61 @@ class EntityManager
         return $return;
     }
 
+    /**
+     * @param EntityAbstract $entity
+     * @return bool|string
+     */
+    public function save(EntityAbstract &$entity)
+    {
+        $entityName = (new \ReflectionClass(get_class($entity)))->getShortName();
+
+        $data = $entity->getArrayCopy();
+
+        /**
+         * Bad hack
+         * Only insert here
+         */
+        unset($data['id']);
+
+        $columns = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', implode(",", array_keys($data))));
+        $values = implode("','", array_values($data));
 
 
+        $result = $this->dbInstance->insert(sprintf("INSERT INTO %s (%s) VALUES (%s)", strtolower($entityName), $columns, "'$values'"));
 
+        if ($result) {
+            $entity->offsetSet('id', $result);
+        }
+
+        return $result;
+
+    }
+
+    /**
+     * @param $className
+     * @param $identifiers
+     * @return bool|string
+     * @throws \Exception
+     */
+    public function delete($className, $identifiers)
+    {
+        if (!class_exists($className)) {
+            throw new \Exception(sprintf('invalid entityname %s given', $className));
+        }
+
+        $entityName = (new \ReflectionClass($className))->getShortName();
+
+        $conditions = [];
+
+        foreach ($identifiers as $identifier) {
+            $conditions[] = sprintf("%s = %s", key($identifier), current($identifier));
+        }
+
+        return $this->dbInstance->query(
+            sprintf("DELETE FROM %s WHERE %s", strtolower($entityName), implode(" AND ", $conditions)),
+            '',
+            [],
+            false)
+        ;
+    }
 }

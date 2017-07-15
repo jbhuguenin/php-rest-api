@@ -23,5 +23,15 @@ CREATE TABLE favorites (
 );
 
 INSERT INTO user (email, name) values ('john.doe@acme.com', 'John Doe');
+INSERT INTO user (email, name) values ('daniel.marhely@deezer.com', 'Daniel Marhely');
+INSERT INTO user (email, name) values ('jonathan.benassaya@deezer.com', 'Jonathan Benassaya');
+
+
 INSERT INTO song (time, name) VALUES (180, 'sample 1');
-INSERT INTO favorites (user_id, song_id) VALUES (1,1);
+INSERT INTO song (time, name) VALUES (300, 'sample 2');
+INSERT INTO song (time, name) VALUES (240, 'sample 3');
+
+
+INSERT INTO favorites (user_id, song_id) VALUES (1, 1);
+INSERT INTO favorites (user_id, song_id) VALUES (2, 1);
+INSERT INTO favorites (user_id, song_id) VALUES (2, 2);

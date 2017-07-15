@@ -62,21 +62,35 @@ class DbAdapter
      * @param bool $return
      * @return array|bool|mixed
      */
-    public function query($query, $process = '', $params = [], $return = true){
+    public function query($query, $process = '', $params = [], $return = true)
+    {
         // prepare statement
         $query = $this->connection->prepare($query);
         // check if there are parameter to bind then bind
-        if(count($params) != 0)
+        if (count($params) != 0) {
             $status = $query->execute($params);
-        else
+        } else {
             $status = $query->execute();
-        if($return){
-            // fetch data
-            if($process == 'all')
-                return $query->fetchAll(\PDO::FETCH_ASSOC);
-            else
-                return  $query->fetch(\PDO::FETCH_ASSOC);
         }
+
+        if ($return) {
+            // fetch data
+            if ($process == 'all') {
+                return $query->fetchAll(\PDO::FETCH_ASSOC);
+            } else {
+                return  $query->fetch(\PDO::FETCH_ASSOC);
+            }
+        }
+
         return $status;
+    }
+
+    /**
+     * @param $query
+     * @return bool|string
+     */
+    public function insert($query)
+    {
+        return $this->query($query,'', [], false) ? $this->connection->lastInsertId(): false;
     }
 }

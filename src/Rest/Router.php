@@ -47,7 +47,7 @@ class Router
     {
         $filter = function($value) use ($request) {
             $route = strstr($value['route'], ":", true)?:'/';
-            return preg_match(sprintf('#^%s(\d+)$#', $route), $request->getUri());
+            return preg_match(sprintf('#^%s(\d+)?$#', $route), $request->getUri());
         };
 
         if(!$routeMatch = array_filter($this->getRoutes(), $filter)) {

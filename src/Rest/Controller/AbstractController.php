@@ -50,10 +50,18 @@ class AbstractController
                     $return = $this->getList();
                 }
                 break;
+            case 'delete':
+                $id = $this->getIdentifier($request);
+
+                if ($id) {
+                    $return = $this->delete($id, $request->getData());
+                } else {
+                    $return = $this->getResponse()->setStatusCode(501);
+                }
+                break;
 
             case 'post':
-                // @todo retrieve data from request
-                $data = [];
+                $data = $request->getData();
                 $return = $this->create($data);
                 break;
                 
@@ -101,6 +109,16 @@ class AbstractController
      * @return Response
      */
     public function get($id)
+    {
+        return $this->getResponse()->setStatusCode(405);
+    }
+
+    /**
+     * @param $id
+     * @param $data
+     * @return Response
+     */
+    public function delete($id, $data)
     {
         return $this->getResponse()->setStatusCode(405);
     }

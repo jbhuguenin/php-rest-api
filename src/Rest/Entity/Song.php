@@ -65,7 +65,7 @@ class Song extends EntityAbstract
      */
     public function setTime($time)
     {
-        $this->time = date("i:s",$time);
+        $this->time = $time;
         return $this;
     }
 }

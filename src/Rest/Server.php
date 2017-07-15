@@ -50,7 +50,7 @@ class Server
     public function run()
     {
         try {
-            $request =  new Request($_SERVER['REQUEST_URI'], $_POST, $_GET, getallheaders(), $_SERVER['REQUEST_METHOD']);
+            $request =  new Request($_SERVER['REQUEST_URI'], file_get_contents('php://input'), $_GET, getallheaders(), $_SERVER['REQUEST_METHOD']);
             $route = $this->getRouter()->matchCurrentRequest($request);
             $response = $this->getRouter()->dispatch(current($route), $request);
         } catch (\Exception $e) {

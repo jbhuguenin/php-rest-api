@@ -14,6 +14,6 @@ class IndexController extends AbstractController
 
     public function getList()
     {
-        return $this->getResponse()->setContent(json_encode('test page'));
+        return $this->getResponse()->setContent('test page');
     }
 }

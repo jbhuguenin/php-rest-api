@@ -24,13 +24,26 @@ class Request
 
     public function __construct($uri, $data, $query, $headers, $requestType)
     {
-        $this->setData($data);
+
+        $this->setData($this->formatData($data));
         $this->setHeaders($headers);
         $this->setQuery($query);
         $this->setRequestType($requestType);
         $this->setUri($uri);
 
         return $this;
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    protected function formatData($data)
+    {
+        $jsonData = json_decode($data, true);
+        parse_str(file_get_contents('php://input'), $data);
+
+        return $jsonData ? : $data;
     }
 
     /**
