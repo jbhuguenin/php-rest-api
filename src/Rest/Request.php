@@ -22,16 +22,19 @@ class Request
     protected $uri;
 
 
-    public function __construct($uri, $data, $query, $headers, $requestType)
+    public function __construct()
     {
-
-        $this->setData($this->formatData($data));
-        $this->setHeaders($headers);
-        $this->setQuery($query);
-        $this->setRequestType($requestType);
-        $this->setUri($uri);
-
         return $this;
+    }
+
+    public static function prepare()
+    {
+        return (new self())
+            ->setData(file_get_contents('php://input'))
+            ->setHeaders(getallheaders())
+            ->setRequestType($_SERVER['REQUEST_METHOD'])
+            ->setUri($_SERVER['REQUEST_URI'])
+        ;
     }
 
     /**
@@ -60,7 +63,7 @@ class Request
      */
     public function setData($data)
     {
-        $this->data = $data;
+        $this->data = $this->formatData($data);
         return $this;
     }
 

@@ -58,7 +58,7 @@ class Router
             }
         }
 
-        return array_values($routeMatch);
+        return current(array_values($routeMatch));
     }
 
     /**
