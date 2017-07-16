@@ -1,8 +1,5 @@
 <?php
-namespace Rest\Entity;
-
-use Rest\DbAdapter;
-use Rest\Server;
+namespace Rest;
 
 /**
  * Created by PhpStorm.

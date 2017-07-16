@@ -9,7 +9,7 @@
 namespace Rest\Controller;
 
 
-use Rest\Entity\EntityManager;
+use Rest\EntityManager;
 use Rest\Request;
 use Rest\Response;
 
@@ -18,7 +18,7 @@ class AbstractController
     /** @var $response \Rest\Response */
     protected $response = null;
 
-    /** @var  $entityManager \Rest\Entity\EntityManager */
+    /** @var  $entityManager \Rest\EntityManager */
     protected $entityManager;
 
     /**
@@ -137,7 +137,7 @@ class AbstractController
     }
 
     /**
-     * @return \Rest\Entity\EntityManager
+     * @return \Rest\EntityManager
      */
     public function getEntityManager()
     {
