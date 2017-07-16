@@ -54,7 +54,9 @@ class Server
             $route = $this->getRouter()->matchCurrentRequest($request);
             $response = $this->getRouter()->dispatch(current($route), $request);
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
+            /**
+             * @todo log errors
+             */
             $response = new Response('', 500);
 
         }
