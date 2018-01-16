@@ -1,4 +1,4 @@
-# Agnostic PHP REST API 
+## Agnostic PHP REST API 
 
 ### Simple approch to write PHP API without framework
 
