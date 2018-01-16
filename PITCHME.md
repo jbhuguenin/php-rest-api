@@ -1,15 +1,21 @@
-# Flux 
+# Agnostic PHP REST API 
 
-An application architecture for React
-
----
-
-### Flux Design
-
-- Dispatcher: Manages Data Flow
-- Stores: Handle State & Logic
-- Views: Render Data via React
+### Simple approch to write PHP API without framework
 
 ---
 
-![Flux Explained](https://facebook.github.io/flux/img/flux-simple-f8-diagram-explained-1300w.png)
+### What We need !
+- Config
+- Server
+- Router
+- Controllers
+- Request
+- Response
+- EntityManager
+- Entities
+- DbAdapter
+
+---
+
+### Config
+---?code=config/config.php?&lang=php&title=Config file
