@@ -19,3 +19,6 @@
 
 ### Config
 ---?code=config/config.php?&lang=php&title=Config file
+
+@[4-11](Router configuration)
+@[12-17](Database configuration)
