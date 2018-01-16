@@ -5,15 +5,15 @@
 ---
 
 ### What We need !
-- Config
-- Server
-- Router
-- Controllers
-- Request
-- Response
-- EntityManager
-- Entities
-- DbAdapter
+- Config |
+- Server |
+- Router |
+- Controllers |
+- Request |
+- Response |
+- EntityManager |
+- Entities |
+- DbAdapter |
 
 ---
 
