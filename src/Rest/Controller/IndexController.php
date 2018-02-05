@@ -14,8 +14,11 @@ use Rest\ViewModel;
 class IndexController extends AbstractController
 {
 
-    public function getList()
-    {
-        return new ViewModel(['test' => 'toto'], ['template' => 'Index/get-list.php']);
+    public function indexAction() {
+        return new ViewModel(['test' => 'toto']);
+    }
+
+    public function homeAction() {
+        return new ViewModel(['home' => 'home']);
     }
 }
