@@ -14,6 +14,8 @@ class Response
 
     const JSON_FORMAT = "Json";
 
+    const HTML_FORMAT = "Html";
+
     protected $headers;
 
     protected $content;
@@ -134,6 +136,10 @@ class Response
         switch ($this->getFormat()) {
             case self::JSON_FORMAT:
                 $content = json_encode($this->getContent());
+                break;
+            case self::HTML_FORMAT:
+                $content = $this->getContent();
+                break;
             default:
                 $content = json_encode($this->getContent());
         }

@@ -10,7 +10,7 @@ namespace Rest\Controller;
 
 use Rest\Entity\User;
 
-class UserController extends AbstractController
+class UserController extends AbstractRestfulController
 {
     /**
      * @param $id

@@ -8,12 +8,14 @@
 
 namespace Rest\Controller;
 
+use Rest\ViewModel;
+
 
 class IndexController extends AbstractController
 {
 
     public function getList()
     {
-        return $this->getResponse()->setContent('test page');
+        return new ViewModel(['test' => 'toto'], ['template' => 'Index/get-list.php']);
     }
 }
