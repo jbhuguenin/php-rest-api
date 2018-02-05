@@ -3,10 +3,10 @@
 return [
     'router' => [
         'routes' => [
-            'default'   => ['route' => '/', 'controller' => '\\Rest\\Controller\\indexController'],
-            'user'      => ['route' => '/user/:id', 'controller' => '\\Rest\\Controller\\userController'],
+            'default'   => ['route' => '/', 'controller' => '\\Rest\\Controller\\IndexController'],
+            'user'      => ['route' => '/user/:id', 'controller' => '\\Rest\\Controller\\UserController'],
             'favorites' => ['route' => '/favorites/:id', 'controller' => '\\Rest\\Controller\\FavoritesController'],
-            'song'      => ['route' => '/song/:id', 'controller' => '\\Rest\\Controller\\songController']
+            'song'      => ['route' => '/song/:id', 'controller' => '\\Rest\\Controller\\SongController']
         ]
     ],
     'database' => [
