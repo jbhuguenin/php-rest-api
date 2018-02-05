@@ -46,8 +46,8 @@ class Router
     public function matchCurrentRequest(Request $request)
     {
         $filter = function($value) use ($request) {
-            $route = strstr($value['route'], ":", true)?:'/';
-            return preg_match(sprintf('#^%s(\d+)?$#', $route), $request->getUri());
+            $route = strstr($value['route'], ":", true)?:$value['route'];
+            return preg_match(sprintf('#^(?:%s(/\d*) | %s)$#x', $route, rtrim($route, '/')), $request->getUri());
         };
 
         if(!$routeMatch = array_filter($this->getRoutes(), $filter)) {
@@ -73,7 +73,9 @@ class Router
             throw new \RuntimeException(sprintf('classname %s does not exist', $className));
         }
 
-        return (new $className())->dispatch($request);
+        $action = isset($route['action']) ? $route['action'] : false;
+
+        return (new $className())->dispatch($request, $action);
     }
 
 
